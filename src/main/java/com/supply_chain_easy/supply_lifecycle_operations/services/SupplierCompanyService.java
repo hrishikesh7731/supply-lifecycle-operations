@@ -8,7 +8,9 @@ import com.supply_chain_easy.supply_chain_base_operations.services.CompanyServic
 import com.supply_chain_easy.supply_lifecycle_operations.dtos.requests.SupplierCompanyDto;
 import com.supply_chain_easy.supply_lifecycle_operations.transformers.SystemTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SupplierCompanyService {
 
     private final SupplierCompanyRepository supplierCompanyRepository;
