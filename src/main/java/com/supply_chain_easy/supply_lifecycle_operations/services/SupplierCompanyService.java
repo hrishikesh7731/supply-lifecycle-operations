@@ -26,8 +26,9 @@ public class SupplierCompanyService {
     public SupplierCompany registerSupplierCompany(SupplierCompanyDto supplierCompanyDto){
 
         SupplierCompany supplierCompany=SystemTransformer.mapDtoToSupplierCompany(supplierCompanyDto);
+        supplierCompany = supplierCompanyRepository.save(supplierCompany);
         Employee Admin= companyService.createAdminUserForCompany(supplierCompany, ApplicationCode.SLO);
 
-        return supplierCompanyRepository.save(supplierCompany);
+        return supplierCompany;
     }
 }

@@ -14,9 +14,15 @@ public class SupplierCompanyDto{
     private Integer leadTimeDays;
     private BigDecimal minimumOrderValue;
     private String companyName;
+    private String registrationNumber;
     private String legalName;
     private String gstNumber;
     private String email;
+    private String industry;
+    private String businessDescription;
     private String website;
     private String contactNumber;
+    private String registeredAddress;
+    private String taxIdentificationNumber;
+    private String vatNumber;
 }

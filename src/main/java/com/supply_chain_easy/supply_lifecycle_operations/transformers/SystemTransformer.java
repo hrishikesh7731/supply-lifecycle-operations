@@ -1,6 +1,7 @@
 package com.supply_chain_easy.supply_lifecycle_operations.transformers;
 
 import com.supply_chain_easy.supply_chain_base_operations.enums.CompanyStatus;
+import com.supply_chain_easy.supply_chain_base_operations.enums.CompanyType;
 import com.supply_chain_easy.supply_chain_base_operations.enums.SupplierCategory;
 import com.supply_chain_easy.supply_chain_base_operations.models.SupplierCompany;
 import com.supply_chain_easy.supply_chain_base_operations.utilites.SystemUtility;
@@ -10,8 +11,7 @@ import java.time.LocalDateTime;
 
 public class SystemTransformer {
 
-    public static SupplierCompany mapDtoToSupplierCompany(
-            SupplierCompanyDto supplierCompanyDto) {
+    public static SupplierCompany mapDtoToSupplierCompany(SupplierCompanyDto dto) {
 
         LocalDateTime now = LocalDateTime.now();
 
@@ -20,19 +20,37 @@ public class SystemTransformer {
                 // Supplier information
                 .supplierCode(SystemUtility.generateId("SUPPLIER"))
                 .supplierCategory(SupplierCategory.valueOf(
-                        supplierCompanyDto.getSupplierCategory().toUpperCase()))
-                .leadTimeDays(supplierCompanyDto.getLeadTimeDays())
-                .minimumOrderValue(supplierCompanyDto.getMinimumOrderValue())
+                        dto.getSupplierCategory().trim().toUpperCase()))
+                .leadTimeDays(dto.getLeadTimeDays())
+                .minimumOrderValue(dto.getMinimumOrderValue())
+
+                // Company identity
+                .companyCode(SystemUtility.generateId("COMP"))
+                .companyType(CompanyType.SUPPLIER_COMPANY)
 
                 // Company information
-                .companyCode(SystemUtility.generateId("COMP"))
-                .displayName(supplierCompanyDto.getCompanyName())
-                .legalName(supplierCompanyDto.getLegalName())
-                .gstNumber(supplierCompanyDto.getGstNumber())
-                .email(supplierCompanyDto.getEmail())
-                .website(supplierCompanyDto.getWebsite())
-                .phoneNumber(supplierCompanyDto.getContactNumber())
+                .displayName(dto.getCompanyName())
+                .legalName(dto.getLegalName())
+                .registrationNumber(dto.getRegistrationNumber())
+
+                // Business information
+                .industry(dto.getIndustry())
+                .businessDescription(dto.getBusinessDescription())
+                .website(dto.getWebsite())
+
+                // Contact information
+                .email(dto.getEmail())
+                .phoneNumber(dto.getContactNumber())
+                .registeredAddress(dto.getRegisteredAddress())
+
+                // Tax information
+                .gstNumber(dto.getGstNumber())
+                .taxIdentificationNumber(dto.getTaxIdentificationNumber())
+                .vatNumber(dto.getVatNumber())
+
+                // Initial state
                 .status(CompanyStatus.PENDING_VERIFICATION)
+                .active(false)
 
                 // Audit information
                 .createdAt(now)
