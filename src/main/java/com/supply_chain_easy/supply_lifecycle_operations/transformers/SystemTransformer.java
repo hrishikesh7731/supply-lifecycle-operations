@@ -25,8 +25,8 @@ public class SystemTransformer {
                 .minimumOrderValue(dto.getMinimumOrderValue())
 
                 // Company identity
-                .companyCode(SystemUtility.generateId("COMP"))
-                .companyType(CompanyType.SUPPLIER_COMPANY)
+                .companyId(SystemUtility.generateId("COMP"))
+                .companyType(CompanyType.valueOf(CompanyType.SUPPLIER_COMPANY.toString()))
 
                 // Company information
                 .displayName(dto.getCompanyName())
