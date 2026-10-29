@@ -19,7 +19,7 @@ Java, Spring Boot, Spring Data JPA, Hibernate, PostgreSQL, Spring Security, JWT,
 
 ### Prerequisites
 
-- Java [version, e.g. 17]
+- Java 17
 - PostgreSQL
 - Maven (or use the included Maven wrapper)
 
@@ -30,13 +30,13 @@ Java, Spring Boot, Spring Data JPA, Hibernate, PostgreSQL, Spring Security, JWT,
    git clone https://github.com/hrishikesh7731/supply-lifecycle-operations.git
    cd supply-lifecycle-operations
    ```
-2. Create a PostgreSQL database named `[supply-chain-easy-db]`.
+2. Create a PostgreSQL database named `supply-chain-easy-db`.
 3. Set the database URL, username and password in `src/main/resources/application.properties`.
 4. Run the application:
    ```bash
    ./mvnw spring-boot:run
    ```
-5. The API starts at `http://localhost:[port, default 8080]`.
+5. The API starts at `http://localhost:8080`.
 
 ### Run the tests
 
