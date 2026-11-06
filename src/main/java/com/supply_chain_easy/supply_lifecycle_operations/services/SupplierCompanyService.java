@@ -7,7 +7,6 @@ import com.supply_chain_easy.supply_chain_base_operations.repositories.SupplierC
 import com.supply_chain_easy.supply_chain_base_operations.services.CompanyService;
 import com.supply_chain_easy.supply_lifecycle_operations.dtos.requests.SupplierCompanyDto;
 import com.supply_chain_easy.supply_lifecycle_operations.transformers.SystemTransformer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,19 +14,30 @@ public class SupplierCompanyService {
 
     private final SupplierCompanyRepository supplierCompanyRepository;
     private final CompanyService companyService;
+    private final SupplierNotificationService supplierNotificationService;
 
-    @Autowired
-    public SupplierCompanyService(SupplierCompanyRepository supplierCompanyRepository,
-                                  CompanyService companyService){
-        this.supplierCompanyRepository=supplierCompanyRepository;
-        this.companyService=companyService;
+    public SupplierCompanyService(
+            SupplierCompanyRepository supplierCompanyRepository,
+            CompanyService companyService,
+            SupplierNotificationService supplierNotificationService) {
+
+        this.supplierCompanyRepository = supplierCompanyRepository;
+        this.companyService = companyService;
+        this.supplierNotificationService = supplierNotificationService;
     }
 
-    public SupplierCompany registerSupplierCompany(SupplierCompanyDto supplierCompanyDto){
+    public SupplierCompany registerSupplierCompany(SupplierCompanyDto supplierCompanyDto) {
 
-        SupplierCompany supplierCompany=SystemTransformer.mapDtoToSupplierCompany(supplierCompanyDto);
+        SupplierCompany supplierCompany =
+                SystemTransformer.mapDtoToSupplierCompany(supplierCompanyDto);
+
         supplierCompany = supplierCompanyRepository.save(supplierCompany);
-        Employee Admin= companyService.createAdminUserForCompany(supplierCompany, ApplicationCode.SLO);
+
+        Employee admin = companyService.createAdminUserForCompany(
+                supplierCompany, ApplicationCode.SLO);
+
+        supplierNotificationService.sendSupplierWelcomeNotification(
+                supplierCompany, admin);
 
         return supplierCompany;
     }
