@@ -64,7 +64,8 @@ public class SupplierNotificationService {
                 .updatedBy("system")
                 .build();
 
-        executorService.submit(()->{notificationService.sendNotification(notification);});
+        notificationService.saveNotification(notification);
+        executorService.submit(() -> notificationService.sendNotification(notification));
     }
 
     private NotificationContext createNotificationContext(
